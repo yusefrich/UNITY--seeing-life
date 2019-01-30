@@ -49,13 +49,13 @@ public class PlayerTouch : MonoBehaviour
 				if (hitInfo.collider.tag == "MovementTouchInput")
 				{
 					moventTouch = true;
-					print("click on movement");
+					//print("click on movement");
 				}
 				if (hitInfo.collider.tag == "JumpTouchInput")
 				{
 					jumpTouch = true;
 					jumpDirectionLine.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-					print("click on jump");
+					//print("click on jump");
 				}
 			}
 		}
@@ -63,7 +63,6 @@ public class PlayerTouch : MonoBehaviour
 		{
 			if (moventTouch)
 			{
-
 				//moving the player using the touch input position
 				Vector3 mPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 				touchInput.transform.position = new Vector3(mPos.x, mPos.y, touchInput.transform.position.z);
@@ -90,7 +89,6 @@ public class PlayerTouch : MonoBehaviour
 					{
 						jumpTouch = true;
 						jumpDirectionLine.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-						print("click on jump");
 					}
 				}
 			}

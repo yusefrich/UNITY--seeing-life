@@ -12,14 +12,20 @@ public class Player : MonoBehaviour
     [Header("direction references")]
     public GameObject directionPointer;
     public GameObject directionPoint;
+    [Header("jump references")] 
+    private bool jumpTimerReset;
     [Header("input reference")]
     private float moveInput;
     
-    
+    [Header("time mechanic")]
+    [Header("time reference")]
+    private TimeScaleController timeScaleController;
+
     
     // Start is called before the first frame update
     void Start()
     {
+        timeScaleController = GameObject.FindWithTag("TimeScale").GetComponent<TimeScaleController>();
         myController = GetComponent<CharacterCustomController>();
     }
 
@@ -27,17 +33,38 @@ public class Player : MonoBehaviour
     {
         moveInput = Input.GetAxis("Horizontal");
        
+        //getting input from left Joystick
         Vector2 lookInput = new Vector2(Input.GetAxisRaw("HorizontalLook"), Input.GetAxisRaw("VerticalLook"));
         float inputAngle = Mathf.Atan2(-lookInput.x, lookInput.y) * Mathf.Rad2Deg;
         directionPointer.transform.eulerAngles = Vector3.forward * inputAngle;
+        
+        //getting input from right joystick
+        Vector2 lookInput2 = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        if (lookInput2.x != 0 || lookInput2.y != 0)
+        {
+            float inputAngle2 = Mathf.Atan2(-lookInput2.x, lookInput2.y) * Mathf.Rad2Deg;
+            directionPointer.transform.eulerAngles = Vector3.forward * inputAngle2;            
+        }
 
         
-        if (Input.GetButtonDown("FireRightBumper"))
+        if (Input.GetButtonDown("FireA")) //A
         {
             Vector2 jumpDirection = (directionPoint.transform.position - transform.position).normalized;
             print("jumppppnowwwww" + jumpDirection);
             myController.Jump(jumpDirection);
+            jumpTimerReset = false;
         }
+
+        if (jumpTimerReset)
+        {
+            timeScaleController.SetTimeScale( 1 - Input.GetAxis("FireRightTrigger") );
+        }
+        
+        if((int)Input.GetAxis("FireRightTrigger") == 0)
+        {
+            jumpTimerReset = true;
+        }
+
         
         
     }
