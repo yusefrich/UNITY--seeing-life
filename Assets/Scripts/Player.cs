@@ -59,8 +59,12 @@ public class Player : MonoBehaviour
         {
             timeScaleController.SetTimeScale( 1 - Input.GetAxis("FireRightTrigger") );
         }
+        else
+        {
+            timeScaleController.SetTimeScale(1);
+        }
         
-        if((int)Input.GetAxis("FireRightTrigger") == 0)
+        if((int)Input.GetAxis("FireRightTrigger") <= 0.5f)
         {
             jumpTimerReset = true;
         }
