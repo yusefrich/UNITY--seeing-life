@@ -21,6 +21,9 @@ public class Player : MonoBehaviour
     [Header("time reference")]
     private TimeScaleController timeScaleController;
 
+    [Header("animations controller")] 
+    [Header("player only animations reference")]
+    public Animator anim;
     
     // Start is called before the first frame update
     void Start()
@@ -48,8 +51,7 @@ public class Player : MonoBehaviour
 
         
         if (Input.GetButtonDown("FireA")) //A
-        {
-            Vector2 jumpDirection = (directionPoint.transform.position - transform.position).normalized;
+        {            Vector2 jumpDirection = (directionPoint.transform.position - transform.position).normalized;
             print("jumppppnowwwww" + jumpDirection);
             myController.Jump(jumpDirection);
             jumpTimerReset = false;
@@ -67,6 +69,12 @@ public class Player : MonoBehaviour
         if((int)Input.GetAxis("FireRightTrigger") <= 0.5f)
         {
             jumpTimerReset = true;
+        }
+        
+        //inicial post controllers
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            anim.SetTrigger("Joinha");
         }
 
         

@@ -118,7 +118,7 @@ public class PlayerTouch : MonoBehaviour
 				directionPointer.transform.eulerAngles = Vector3.forward * inputAngle;
 
 				//setting time scale to the jumo
-				timeScaleController.SetTimeScale( 1 - (Vector3.Distance(B, A)/4f) );
+				timeScaleController.SetTimeScale(1 - ((Vector3.Distance(B, A)/4f) * 5f ));
 				
 				
 			}
